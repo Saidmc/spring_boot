@@ -1,0 +1,23 @@
+package com.said.wix.iny_deps;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Automovil {
+	
+	private static final Logger log = LoggerFactory.getLogger(Automovil.class);
+
+	@Autowired
+	private Motores motor;
+	
+	public Automovil() {
+		log.info("Entrando al vehículo");
+	}
+	
+	public void arrancaAuto() {
+		motor.enciendeMotor();
+	}
+}
