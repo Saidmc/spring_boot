@@ -2,6 +2,7 @@ package com.said.wix.users.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
@@ -33,8 +34,12 @@ public class UserService {
 	}
 	
 	//Este método permitirá devolver la lista de cuentas
-	public List<User> getUsers() {
-		return this.users;
+	public List<User> getUsers(String startWith) {
+		if (startWith != null) {
+			return users.stream().filter(u->u.getUsername().startsWith(startWith)).collect(Collectors.toList());
+		} else {
+			return this.users;
+		}
 	}
 	
 	//Este método permitirá devolver la primera cuenta que coincida su nombre de usuario con el parámetro "username"

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,8 +31,10 @@ public class UserController {
 	//Asocia la solicitud de un recurso y el metodo Http GET con un método Java y permite definir una respuesta de tipo <List<User>> para devolver el ResponseHttp
 	@GetMapping
 	//Método HHTP (Get) + Un recurso ("/users") = Handler Method, getUsers es un Handler Method
-	public ResponseEntity<List<User>> getUsers() {
-		return new ResponseEntity<>(userservice.getUsers(), HttpStatus.OK);
+	//Con @RequestParam se obtiene un valor de alguno de los parametros de la URL
+	//aquí srtatWith es un Query param, estos queryParam sirven para os casos en los que se requiere una búsqueda o fitrar el resultado
+	public ResponseEntity<List<User>> getUsers(@RequestParam(required = false, value="startWith") String startWith) {
+		return new ResponseEntity<>(userservice.getUsers(startWith), HttpStatus.OK);
 	}
 	
 	//Un caso similar al anterior, pero ahora asociamos el metodo Http GET y el recurso ("/users/{username}") con el método Java "getUserByUsername"
